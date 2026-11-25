@@ -100,7 +100,28 @@ Client ──▶ nginx (port 80/443) ──▶ agent (port 8000, internal networ
 
 ## Part 6: Output `check_production_ready.py`
 
-> *(Chạy trong WSL2 tại `06-lab-complete/`: `python check_production_ready.py` và dán phần `📋 Checklist Deliverable` đạt `PASS 12/12` vào đây.)*
+```text
+================================================================
+  📋 Checklist Deliverable
+     ✅ Dockerfile (multi-stage, < 500 MB)
+     ✅ docker-compose.yml (agent + redis)
+     ✅ .dockerignore
+     ✅ Health check endpoint (GET /health)
+     ✅ Readiness endpoint (GET /ready)
+     ✅ API Key authentication
+     ✅ Rate limiting
+     ✅ Cost guard
+     ✅ Config từ environment variables
+     ✅ Structured logging
+     ✅ Graceful shutdown
+     ✅ Public URL ready (Railway / Render config)
+----------------------------------------------------------------
+  Result: 12/12 tiêu chí đạt · 43/43 checks passed
+  🎉 PASS 12/12 — PRODUCTION READY! Deploy nào!
+================================================================
+```
+
+*(Docker image size: `273 MB`; `docker stop` exit code `0`, `0.5s`.)*
 
 ---
 

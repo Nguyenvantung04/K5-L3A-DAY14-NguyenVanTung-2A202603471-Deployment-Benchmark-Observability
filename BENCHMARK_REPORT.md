@@ -23,10 +23,10 @@
 
 | Concurrency | RPS | p50 (ms) | p95 (ms) | p99 (ms) | Error rate | SLO |
 |---|---|---|---|---|---|---|
-| 1 | [TODO] | [TODO] | [TODO] | [TODO] | [TODO] | [TODO] |
-| 10 | [TODO] | [TODO] | [TODO] | [TODO] | [TODO] | [TODO] |
-| 50 | [TODO] | [TODO] | [TODO] | [TODO] | [TODO] | [TODO] |
-| 100 | [TODO] | [TODO] | [TODO] | [TODO] | [TODO] | [TODO] |
+| 1 | 4.0 | 192.8 | 222.8 | 1710.9 | 0.33% | PASS |
+| 10 | 40.54 | 187.6 | 221.7 | 1688.4 | 1.67% | PASS |
+| 50 | 105.57 | 197.5 | 250.9 | 1702.6 | 1.33% | PASS |
+| 100 | 65.82 | 332.4 | 2968.5 | 3255.4 | 1.00% | FAIL |
 
 **Nhận xét:** RPS không tăng tuyến tính mãi theo concurrency. Ở mức concurrency thấp–trung bình (1 → 10 → 50), RPS tăng gần tuyến tính nhờ async I/O xử lý đồng thời thời gian chờ LLM. Khi lên mức cao (100), CPU/event-loop và hàng đợi kết nối bắt đầu bão hòa làm latency (đặc biệt p95/p99) tăng vọt và RPS chững lại.
 
@@ -34,9 +34,9 @@
 
 | `MOCK_SLOW_RATE` | avg (ms) | p95 (ms) | p99 (ms) |
 |---|---|---|---|
-| 0 | [TODO] | [TODO] | [TODO] |
-| 0.03 (mặc định) | [TODO] | [TODO] | [TODO] |
-| 0.1 | [TODO] | [TODO] | [TODO] |
+| 0 | 190.8 | 217.6 | 231.9 |
+| 0.03 (mặc định) | 250.9 | 226.8 | 1703.9 |
+| 0.1 | 315.9 | 1683.3 | 1712.0 |
 
 **Nhận xét:** `p95` và đặc biệt `p99` nhạy nhất với request chậm (tail latency). Khi `MOCK_SLOW_RATE=0.03` (3% chậm 1500 ms), giá trị `avg` chỉ tăng nhẹ nên che giấu trải nghiệm tệ của nhóm người dùng chậm; trong khi `p99` nhảy vọt ngay lập tức. Vì vậy SLO phải đặt theo `p95`/`p99` chứ không đặt theo `average`.
 
@@ -46,10 +46,10 @@
 
 | Chỉ số | Agent v1 | Agent v2 (trước sửa KB) | Agent v2 (sau khi sửa KB) |
 |---|---|---|---|
-| Accuracy | [TODO] | [TODO] | [TODO — kỳ vọng 100%] |
-| Avg tokens / câu | [TODO] | [TODO] | [TODO] |
-| Tổng cost (USD) | [TODO] | [TODO] | [TODO] |
-| Cost / câu đúng (USD) | [TODO] | [TODO] | [TODO] |
+| Accuracy | 4.35% (1/23) | [TODO] | 100.0% (23/23) |
+| Avg tokens / câu | 56.3 | [TODO] | 113.7 |
+| Tổng cost (USD) | $0.000394 | [TODO] | $0.000787 |
+| Cost / câu đúng (USD) | $0.00039375 | [TODO] | $0.00003420 |
 | Quality gate | FAIL | FAIL | PASS |
 
 **Những câu v2 trả lời sai ban đầu và cách đã sửa trong `KNOWLEDGE_BASE` (`utils/mock_llm.py`):**
